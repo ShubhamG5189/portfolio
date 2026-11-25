@@ -1,0 +1,14 @@
+# dependencies and build output (recreated by npm install / npm run build)
+node_modules
+dist
+*.log
+
+# Vercel link and access tokens: never commit
+.vercel
+.env*
+
+# original portrait photos (large); the processed copies in public/portrait/ are committed
+portrait-src
+
+# local editor/agent settings
+.claude

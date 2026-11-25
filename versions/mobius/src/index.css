@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============ Tokens: a quiet monochrome page that lets the work carry the colour ============ */
+:root {
+  --c-fg: 11 11 11;       /* text */
+  --c-muted: 110 110 110; /* secondary text (≈5:1 on white) */
+  --c-faint: 196 196 196; /* decorative type only */
+  --c-line: 232 232 232;  /* hairlines */
+  --c-chip: 242 242 242;  /* tag pills */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root { background: #fff; }
+body {
+  font-family: 'Inter Tight', system-ui, sans-serif;
+  color: rgb(var(--c-fg));
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'ss01', 'cv11';
+}
+h1, h2, h3 { text-wrap: balance; letter-spacing: -0.04em; }
+p { text-wrap: pretty; }
+::selection { background: rgb(var(--c-fg)); color: #fff; }
+:focus-visible { outline: 2px solid rgb(var(--c-fg)); outline-offset: 3px; border-radius: 4px; }
+input, select, button, textarea { font: inherit; color: inherit; }
+
+/* Lenis smooth scroll */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* giant numerals filled with media (the fill stays put while the digits roll) */
+.media-text {
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  background-size: cover;
+  background-position: center;
+}
+
+/* fill-in-the-blanks contact form */
+.blank {
+  border: 0;
+  border-bottom: 1.5px solid rgb(var(--c-faint));
+  background: transparent;
+  padding: 0 0.1em 0.04em;
+  min-width: 6ch;
+  color: rgb(var(--c-fg));
+  outline: none;
+  transition: border-color 200ms ease-out;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+.blank::placeholder { color: rgb(var(--c-faint)); }
+.blank:focus, .blank:hover { border-bottom-color: rgb(var(--c-fg)); }
+select.blank { cursor: pointer; padding-right: 0.9em; background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%); background-position: right 0.25em top 55%, right 0 top 55%; background-size: 0.25em 0.25em; background-repeat: no-repeat; }
+select.blank.empty { color: rgb(var(--c-faint)); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* ============ Living Portrait (engine CSS, unchanged) ============ */
+.hero-portrait-wrap {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  width: 400px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  touch-action: pan-y;
+}
+.hero-portrait-inner {
+  transition: transform 0.6s ease-in-out;
+  will-change: transform;
+}
+.hero-portrait-inner { position: relative; }
+.hero-portrait-inner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+#faceGl { position: absolute; left: -35%; top: -35%; width: 170%; height: 170%; pointer-events: none; }
+#faceProps { position: absolute; inset: 0; pointer-events: none; }
+#faceFly, #faceHand { position: absolute; opacity: 0; transition: opacity .2s; transform: translate(-50%, -50%); }
+#faceFly { width: 6%; fill: #111; }
+#faceFly .wing { fill: rgba(220, 235, 255, .7); transform-origin: 16px 15px; animation: flap .05s linear infinite alternate; }
+#faceFly .wing.r { animation-direction: alternate-reverse; }
+@keyframes flap { from { transform: rotate(-16deg); } to { transform: rotate(16deg); } }
+#faceHand { width: 11%; fill: #fff; stroke: #0c0c0c; stroke-width: 1.4; stroke-linejoin: round; }
+#faceHand .grab { display: none; }
+#faceHand.shut .open { display: none; }
+#faceHand.shut .grab { display: block; }
+
+/* the portrait lives on the front hero card here, so it sizes to the card */
+.portrait-card .hero-portrait-wrap { width: 112%; top: 54%; }

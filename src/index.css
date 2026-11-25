@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============ Tokens ============ */
+:root {
+  /* two worlds: warm paper (hero, gallery) and stadium-night purple-black (work, closing) */
+  --paper: #ece6db;
+  --paper-deep: #ddd4c4;   /* the giant name behind the portrait */
+  --ink: #17121f;          /* text on paper */
+  --ink-soft: #4a4256;     /* secondary text on paper (≈8:1) */
+  --night: #0f0b18;
+  --night-2: #181128;
+  --mist: #e4def0;         /* text on night */
+  --mist-dim: #a99fc2;     /* secondary text on night (≈7.6:1) */
+  --gold: #f0b54a;         /* collectible-card frames + the one primary action */
+  --violet: #8c6bff;       /* focus + selection */
+  --split-a: #ff3d6e;      /* RGB-split channels, glitch moments only */
+  --split-b: #2de2e6;
+  /* the same colours as RGB channels, so Tailwind classes like text-mist/20 can add opacity */
+  --c-paper: 236 230 219;
+  --c-paper-deep: 221 212 196;
+  --c-ink: 23 18 31;
+  --c-ink-soft: 74 66 86;
+  --c-night: 15 11 24;
+  --c-night-2: 24 17 40;
+  --c-mist: 228 222 240;
+  --c-mist-dim: 169 159 194;
+  --c-gold: 240 181 74;
+  --c-violet: 140 107 255;
+  /* height of the diagonal cuts between sections */
+  --cut: 9vh;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (min-width: 768px) { :root { --cut: 18vh; } }
+
+*,
+*::before,
+*::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+html, body, #root { background: var(--night); }
+body {
+  font-family: 'Barlow', system-ui, sans-serif;
+  color: var(--mist);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+::selection { background: var(--violet); color: #fff; }
+:focus-visible { outline: 2px solid var(--violet); outline-offset: 3px; border-radius: 2px; }
+html { scrollbar-color: #3a3150 var(--night); }
+
+/* ============ Effects ============ */
+/* CRT scanlines laid over a surface */
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.06) 0 1px, transparent 1px 3px);
+  mix-blend-mode: overlay;
+}
+
+/* RGB split: two tinted copies of the text slip sideways, with sliced glitches now and then */
+.rgb-split { position: relative; display: inline-block; }
+.rgb-split::before,
+.rgb-split::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+.rgb-split::before { color: var(--split-a); transform: translateX(-0.035em); animation: slice-a 2.8s steps(1) infinite; }
+.rgb-split::after  { color: var(--split-b); transform: translateX(0.035em);  animation: slice-b 2.8s steps(1) infinite; }
+@keyframes slice-a {
+  0%, 62%, 100% { clip-path: inset(0 0 0 0); transform: translateX(-0.035em); }
+  64% { clip-path: inset(12% 0 64% 0); transform: translateX(-0.12em); }
+  67% { clip-path: inset(58% 0 18% 0); transform: translateX(0.08em); }
+  70% { clip-path: inset(30% 0 44% 0); transform: translateX(-0.06em); }
+}
+@keyframes slice-b {
+  0%, 62%, 100% { clip-path: inset(0 0 0 0); transform: translateX(0.035em); }
+  64% { clip-path: inset(70% 0 6% 0); transform: translateX(0.12em); }
+  67% { clip-path: inset(20% 0 60% 0); transform: translateX(-0.08em); }
+  70% { clip-path: inset(46% 0 30% 0); transform: translateX(0.05em); }
+}
+
+/* light streaks shooting across the intro */
+.streak {
+  position: absolute;
+  height: 2px;
+  width: 70vmax;
+  left: -10vmax;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.85) 50%, transparent);
+  transform: rotate(-58deg) translateX(-80vmax);
+  animation: streak 2.6s var(--ease-out) infinite;
+  filter: blur(0.4px);
+}
+.streak.violet { background: linear-gradient(90deg, transparent, var(--violet) 50%, transparent); }
+.streak.gold { background: linear-gradient(90deg, transparent, var(--gold) 50%, transparent); }
+@keyframes streak { to { transform: rotate(-58deg) translateX(120vmax); } }
+
+/* diagonal cuts between the two worlds */
+.cut-rise { clip-path: polygon(0 var(--cut), 100% 0, 100% 100%, 0 100%); margin-top: calc(-1 * var(--cut)); }
+.cut-fall { clip-path: polygon(0 0, 100% var(--cut), 100% 100%, 0 100%); margin-top: calc(-1 * var(--cut)); }
+
+/* collectible card: gold frame, glow, and a foil sheen that sweeps on hover */
+/* .collectible is an <a>; give it `block` (or `hidden md:block`) in its class list */
+.collectible .card-surface {
+  position: relative;
+  padding: 6px;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #f8d685 0%, #b9782a 38%, #f0b54a 62%, #7a4a15 100%);
+  box-shadow: 0 28px 60px -22px rgb(240 181 74 / 0.45), 0 0 90px -10px rgb(140 107 255 / 0.35);
+  transition: transform 300ms var(--ease-out), box-shadow 300ms var(--ease-out);
+}
+.collectible .card-surface::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border-radius: 5px;
+  background: linear-gradient(115deg, transparent 30%, rgb(255 255 255 / 0.35) 48%, transparent 62%);
+  background-size: 250% 100%;
+  background-position: 120% 0;
+  mix-blend-mode: soft-light;
+  transition: background-position 700ms var(--ease-out);
+  pointer-events: none;
+}
+.collectible:hover .card-surface,
+.collectible:focus-visible .card-surface { transform: translateY(-8px); box-shadow: 0 40px 70px -24px rgb(240 181 74 / 0.6), 0 0 110px -8px rgb(140 107 255 / 0.5); }
+.collectible:hover .card-surface::after,
+.collectible:focus-visible .card-surface::after { background-position: -40% 0; }
+
+/* discipline names pick up the RGB split on hover */
+.split-hover { transition: text-shadow 200ms ease-out; }
+.split-hover:hover { text-shadow: -0.04em 0 var(--split-a), 0.04em 0 var(--split-b); }
+
+/* frame ruler under the work timeline (like a 3D app's timeline) */
+.ruler {
+  background-image:
+    repeating-linear-gradient(90deg, rgb(228 222 240 / 0.35) 0 1px, transparent 1px 200px),
+    repeating-linear-gradient(90deg, rgb(228 222 240 / 0.14) 0 1px, transparent 1px 20px);
+  background-size: 100% 22px, 100% 10px;
+  background-repeat: repeat-x;
+  background-position: 0 0, 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rgb-split::before, .rgb-split::after, .streak { animation: none; }
+  .streak { display: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ============ Living Portrait (unchanged) ============ */
+.hero-portrait-wrap {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  width: 400px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  touch-action: pan-y;
+}
+.hero-portrait-inner {
+  transition: transform 0.6s ease-in-out;
+  will-change: transform;
+}
+.hero-portrait-inner { position: relative; }
+.hero-portrait-inner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+#faceGl { position: absolute; left: -35%; top: -35%; width: 170%; height: 170%; pointer-events: none; }
+#faceProps { position: absolute; inset: 0; pointer-events: none; }
+#faceFly, #faceHand { position: absolute; opacity: 0; transition: opacity .2s; transform: translate(-50%, -50%); }
+#faceFly { width: 6%; fill: #111; }
+#faceFly .wing { fill: rgba(220, 235, 255, .7); transform-origin: 16px 15px; animation: flap .05s linear infinite alternate; }
+#faceFly .wing.r { animation-direction: alternate-reverse; }
+@keyframes flap { from { transform: rotate(-16deg); } to { transform: rotate(16deg); } }
+#faceHand { width: 11%; fill: #fff; stroke: #0c0c0c; stroke-width: 1.4; stroke-linejoin: round; }
+#faceHand .grab { display: none; }
+#faceHand.shut .open { display: none; }
+#faceHand.shut .grab { display: block; }
+
+@media (max-width: 767px) { .hero-portrait-wrap { top: 41%; } } /* leave room for the intro text on phones */
+@media (min-width: 640px) { .hero-portrait-wrap { width: 500px; } }
+@media (min-width: 768px) { .hero-portrait-wrap { width: 600px; } }
+@media (min-width: 1024px) { .hero-portrait-wrap { width: clamp(640px, 78vh, 46vw); } }
