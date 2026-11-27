@@ -11,7 +11,7 @@ export const site = {
   about:
     "With more than five years of experience in design, i focus on branding, web design, and user experience, i truly enjoy working with businesses that aim to stand out and present their best image. Let's build something incredible together!",
   // Contact details: shown in the footer, the closing section and on the /contact page
-  email: 'shubhamgirkar2026@gmail.com',
+  email: 'shubhamgirkar2025@gmail.com',
   phone: '+91 90116 99046', // how it's displayed
   phoneLink: '+919011699046', // digits only with country code: used for calls and WhatsApp
   socials: [
