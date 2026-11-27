@@ -1,6 +1,15 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useLayoutEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { projects } from '../data/content';
+import WorkCard from '../components/WorkCard';
+import ProjectViewer from '../components/ProjectViewer';
+
+// a project opens at #work/<slug>, so the link can be shared and the phone's Back button closes it
+const slugFromHash = () => {
+  const m = window.location.hash.match(/^#work\/(.+)$/);
+  return m && projects.some((p) => p.slug === m[1]) ? m[1] : null;
+};
 
 // frame numbers along the timeline ruler, one every 200px
 const FRAMES = Array.from({ length: 24 }, (_, i) => String((i + 1) * 10).padStart(3, '0'));
@@ -9,6 +18,28 @@ export default function WorkSection() {
   const section = useRef<HTMLElement>(null);
   const track = useRef<HTMLOListElement>(null);
   const [distance, setDistance] = useState(0);
+
+  const [openSlug, setOpenSlug] = useState<string | null>(slugFromHash);
+  const pushed = useRef(false);
+  useEffect(() => {
+    const sync = () => { setOpenSlug(slugFromHash()); pushed.current = false; };
+    window.addEventListener('popstate', sync);
+    return () => window.removeEventListener('popstate', sync);
+  }, []);
+  const open = useCallback((slug: string) => {
+    window.history.pushState(null, '', `#work/${slug}`);
+    pushed.current = true;
+    setOpenSlug(slug);
+  }, []);
+  const go = useCallback((slug: string) => {
+    window.history.replaceState(null, '', `#work/${slug}`);
+    setOpenSlug(slug);
+  }, []);
+  const close = useCallback(() => {
+    if (pushed.current) { pushed.current = false; window.history.back(); setOpenSlug(null); return; }
+    window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    setOpenSlug(null);
+  }, []);
 
   // how far the card track has to travel sideways
   useLayoutEffect(() => {
@@ -68,26 +99,13 @@ export default function WorkSection() {
           className="relative flex h-full w-max items-center gap-[16vw] pl-[12vw] md:gap-[12vw] md:pl-[42vw]"
         >
           {projects.map((p, i) => (
-            <li key={p.name} className="shrink-0" style={{ transform: `translateY(${i % 2 ? 7 : -5}vh)` }}>
-              <a
-                href={p.link}
-                target={p.link.startsWith('http') ? '_blank' : undefined}
-                rel="noreferrer"
-                className="collectible block w-[min(68vw,300px)] md:w-[clamp(240px,22vw,320px)]"
-              >
-                <span className="card-surface block">
-                  <img src={p.col2} alt={`${p.name} — ${p.category} project`} loading="lazy" className="aspect-[3/4] w-full rounded-[5px] object-cover" />
-                </span>
-                <span className="mt-5 block font-display text-[clamp(1.4rem,2vw,1.9rem)] font-black uppercase leading-none text-mist">
-                  {p.name}
-                </span>
-                <span className="mt-2 block font-body text-xs font-medium uppercase tracking-[0.16em] text-mist-dim">{p.stats}</span>
-              </a>
+            <li key={p.slug} className="shrink-0" style={{ transform: `translateY(${i % 2 ? 7 : -5}vh)` }}>
+              <WorkCard project={p} onOpen={open} />
             </li>
           ))}
           {/* the timeline ends on an open slot */}
-          <li className="w-[min(72vw,340px)] shrink-0 md:w-[clamp(260px,24vw,360px)]">
-            <div className="flex aspect-[3/4] flex-col justify-end rounded-[10px] border-2 border-dashed border-gold/50 p-6">
+          <li className="w-[min(80vw,360px)] shrink-0 md:w-[clamp(300px,27vw,420px)]">
+            <div className="flex aspect-[808/632] flex-col justify-end rounded-[10px] border-2 border-dashed border-gold/50 p-6">
               <p className="font-display text-[clamp(2rem,3.2vw,3rem)] font-black uppercase leading-[0.9] text-mist">Your project, next</p>
               <a
                 href="/contact"
@@ -101,6 +119,8 @@ export default function WorkSection() {
           <li aria-hidden="true" className="w-[6vw] shrink-0 md:w-[10vw]" />
         </motion.ol>
       </div>
+      {/* rendered on <body> so the section's diagonal clip can't cut it */}
+      {createPortal(<AnimatePresence>{openSlug && <ProjectViewer key="viewer" slug={openSlug} onClose={close} onGo={go} />}</AnimatePresence>, document.body)}
     </section>
   );
 }

@@ -65,7 +65,7 @@ export default function HeroSection() {
         <FadeIn gate={ready} delay={0.3} y={20} className="pointer-events-auto max-w-[44vw] md:max-w-[270px]">
           <a href="#work" aria-label={`See ${projects[0].name}`} className="collectible mb-6 hidden w-[118px] -rotate-[5deg] md:block">
             <span className="card-surface block">
-              <img src={projects[0].col2} alt="" className="aspect-[3/4] w-full rounded-[5px] object-cover" />
+              <img src={projects[0].cover} alt="" className="aspect-[3/4] w-full rounded-[5px] object-cover" />
             </span>
           </a>
           {/* what I do, one discipline per beat; the name itself is the giant backdrop behind the portrait */}

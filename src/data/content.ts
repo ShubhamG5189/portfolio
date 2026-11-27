@@ -76,36 +76,159 @@ export const services = [
   { name: 'Web Design', description: 'Designing clean, modern, and conversion-focused websites with attention to layout, typography, and user experience.' },
 ];
 
-const img = (file: string) =>
-  `https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_${file}.png&w=1280&q=85`;
+// ===== YOUR WORK =====
+// One entry per card on the "Signature work" timeline. Clicking a card opens a full-screen viewer.
+// These come from Behance for now (pictures and video players load from Behance).
+// Your own files later: put each project in public/work/<slug>/ and refer to it as '/work/<slug>/cover.jpg'.
+// Cover: landscape about 5:4 (e.g. 1600x1250, under 400 KB). Hover video: short muted .mp4 loop, under 3 MB.
+export type Media =
+  | { type: 'image'; src: string; caption?: string }
+  | { type: 'video'; src: string; caption?: string }                 // an .mp4 file
+  | { type: 'embed'; src: string; ratio?: number; caption?: string }; // a player page, e.g. Behance/YouTube/Vimeo
+export type Project = {
+  slug: string;        // short id, lowercase-with-dashes; also used in the link that opens this project
+  name: string;
+  category: string;    // the discipline: Graphic Design, Motion Graphics, AI Video & Image, 3D & Renders
+  stats: string;       // the small line under the card
+  year?: string;
+  cover: string;       // the card picture
+  hoverVideo?: string; // plays while the cursor is on the card
+  description: string; // a few sentences shown in the viewer
+  media: Media[];      // shown in the viewer, in this order
+  link?: string;       // e.g. the Behance page, shown as a button in the viewer
+};
 
-// `stats` is the small line under each card on the work timeline. Edit it to match the real project.
-export type Project = { name: string; category: string; stats: string; link: string; col1: [string, string]; col2: string };
+const BE = 'https://mir-s3-cdn-cf.behance.net/';
+const cover = (file: string) => `${BE}projects/original_webp/${file}`;
+const pic = (file: string) => `${BE}project_modules/source/${file}`;
+const player = (id: string) => `https://www-ccv.adobe.io/v1/player/ccv/${id}/embed?api_key=behance1&bgcolor=%23191919`;
+const behance = (path: string) => `https://www.behance.net/gallery/${path}`;
 
 export const projects: Project[] = [
   {
-    name: 'Nextlevel Studio',
-    stats: 'Client · 3D modeling · Rendering',
-    category: 'Client',
-    link: '#',
-    col1: [img('20260412_055344_5eff02e0-87a5-41ce-b64f-eb08da8f33db'), img('20260412_055431_11d841fd-8b41-46a5-82e4-b04f2407a7d8')],
-    col2: img('20260412_055451_e317bf2d-28d4-48cc-86b0-6f72f25b6327'),
+    slug: 'showreel',
+    name: 'Showreel',
+    category: '3D & Renders',
+    stats: '3D · Motion · Blender · After Effects',
+    year: '2025',
+    cover: cover('9aa6e3239173199.Y3JvcCwxMjU5LDk4NCwzNjcsMA.png'),
+    description: 'A cut of my 3D and motion work, built in Blender and finished in After Effects.',
+    media: [{ type: 'embed', src: player('LQNFHbkiYDb'), ratio: 16 / 9 }],
+    link: behance('239173199/Showreel'),
   },
   {
-    name: 'Aura Brand Identity',
-    stats: 'Personal · Branding · Motion',
-    category: 'Personal',
-    link: '#',
-    col1: [img('20260412_055654_911201c5-36d9-4bc6-bac7-331adfce159f'), img('20260412_055723_5ceda0b8-d9c2-4665-b2e3-83ba19ba76d1')],
-    col2: img('20260412_055753_adc5dcbd-a8e6-49c0-b43a-9b030d835cea'),
+    slug: 'mahindra-265-plus',
+    name: 'New Mahindra 265 Plus Launch',
+    category: 'Motion Graphics',
+    stats: 'Mahindra Tractors · Launch film · 2D animation',
+    year: '2026',
+    cover: cover('fcf544241572227.Y3JvcCwxNTk1LDEyNDgsNjk1LDY4Mw.png'),
+    description: 'Launch animation for the new Mahindra 265 Plus tractor, made in After Effects and Illustrator.',
+    media: [{ type: 'embed', src: player('KEzmt5tptxU'), ratio: 1 }],
+    link: behance('241572227/New-Mahindra-265-Plus-launch'),
   },
   {
-    name: 'Solaris Digital',
-    stats: 'Client · Web design · 3D',
-    category: 'Client',
-    link: '#',
-    col1: [img('20260412_055759_963cfb0b-4bd1-4b0f-9d0a-09bd6cf95b2f'), img('20260412_060108_438f781a-9846-4dcc-89ab-c4e6cb830f5b')],
-    col2: img('20260412_055818_9d062121-ad7e-46b9-999a-1a6a692ef1ee'),
+    slug: 'lamborghini-lineup',
+    name: 'Lamborghini Lineup',
+    category: '3D & Renders',
+    stats: '3D modeling · Vehicle render · Blender',
+    year: '2025',
+    cover: cover('447bec239175939.Y3JvcCwxMzgwLDEwODAsMjcwLDA.png'),
+    description: 'A lineup of Lamborghini cars, modelled, lit and rendered in Blender.',
+    media: [{ type: 'image', src: pic('8e7dd4239175939.69243219c6666.png') }],
+    link: behance('239175939/Lamborghini-lineup'),
+  },
+  {
+    slug: 'beyond-frames-cinema',
+    name: 'Beyond Frames Cinema',
+    category: 'AI Video & Image',
+    stats: 'Logo reveal trailer · AI video · Midjourney',
+    year: '2026',
+    cover: cover('67b04b241570267.Y3JvcCwxOTkxLDE1NTcsNTE3LDIwMg.png'),
+    description: "Logo reveal trailer for Beyond Frames Cinema, a sci-fi storytelling YouTube channel. Made with Midjourney and After Effects.",
+    media: [{ type: 'embed', src: player('APLofE8kkjS'), ratio: 16 / 9 }],
+    link: behance('241570267/Beyond-Frames-Cinema-Logo-reveal-trailer'),
+  },
+  {
+    slug: 'mbull-engine-launch',
+    name: 'mBull Engine Launch',
+    category: 'Motion Graphics',
+    stats: 'Mahindra Tractors · Launch campaign',
+    year: '2026',
+    cover: cover('69299e241571489.Y3JvcCwxNzcxLDEzODUsNjQwLDQ3Mw.png'),
+    description: 'Animated launch post for the Mahindra mBull engine, made in After Effects and Illustrator.',
+    media: [{ type: 'embed', src: player('9ypnAK4xdYm'), ratio: 1 }],
+    link: behance('241571489/Mbull-engine-Launch-Post-for-Mahindra'),
+  },
+  {
+    slug: 'tunnel',
+    name: 'Tunnel',
+    category: '3D & Renders',
+    stats: '3D modeling · Lighting · Blender',
+    year: '2025',
+    cover: cover('4dd6f5239172703.Y3JvcCwxMzgwLDEwODAsMjcwLDA.jpg'),
+    description: 'A tunnel scene modelled and lit in Blender, seen from seven angles.',
+    media: ['e5331f239172703.6924266f75079', 'e6bd68239172703.6924266f76994', 'f79b01239172703.6924266f77853', '5cdd44239172703.6924266f75810', '8788d2239172703.6924266f76234', '614eca239172703.6924266f77db8', '45b28f239172703.6924266f770f4']
+      .map((f) => ({ type: 'image' as const, src: pic(`${f}.jpg`) })),
+    link: behance('239172703/Tunnel-Blender-Work'),
+  },
+  {
+    slug: 'arabian-village',
+    name: 'Arabian Village',
+    category: 'Graphic Design',
+    stats: 'Digital art · Illustration · Photoshop',
+    year: '2026',
+    cover: cover('04ec96241570503.Y3JvcCw5MjAsNzIwLDEwMTEsMA.png'),
+    description: 'Digital art inspired by the Arabian Nights, showing the culture and atmosphere of an Arab village.',
+    media: [
+      { type: 'image', src: pic('c96407241570503.695b9cf41868a.png'), caption: 'Final artwork' },
+      { type: 'image', src: pic('6d0380241570503.695b9cf418126.png'), caption: 'Rough sketch' },
+    ],
+    link: behance('241570503/Digital-Art'),
+  },
+  {
+    slug: 'social-media-animation',
+    name: 'Social Media Post Animation',
+    category: 'Motion Graphics',
+    stats: 'Social media · Animation · After Effects',
+    year: '2025',
+    cover: cover('ddea98239309321.Y3JvcCwyNTEwLDE5NjQsODAsMA.png'),
+    description: 'Animated social media posts, designed in Photoshop and animated in After Effects.',
+    media: [{ type: 'embed', src: player('PwRoIXycXTn'), ratio: 3 / 2 }],
+    link: behance('239309321/Social-Media-Post-Animation'),
+  },
+  {
+    slug: 'ai-video',
+    name: 'AI Video',
+    category: 'AI Video & Image',
+    stats: 'AI video · DALL·E 3',
+    year: '2025',
+    cover: cover('b72583235257803.Y3JvcCwyODAwLDIxOTAsMCwzMDQ.png'),
+    description: 'Three short films made with AI tools.',
+    media: ['8UEnmVrob7b', '9cnM6Z3VJJr', 'W3-xH4ejvsx'].map((id) => ({ type: 'embed' as const, src: player(id), ratio: 16 / 9 })),
+    link: behance('235257803/Ai-Video'),
+  },
+  {
+    slug: 'projects-av',
+    name: 'Projects AV',
+    category: 'Motion Graphics',
+    stats: 'Motion graphics · Video editing',
+    year: '2025',
+    cover: cover('066e28239322861.Y3JvcCwyNTEwLDE5NjQsMjU0LDA.png'),
+    description: 'Motion graphics and video edits made in After Effects.',
+    media: [{ type: 'embed', src: player('7Kve3kn3ndi'), ratio: 3 / 2 }],
+    link: behance('239322861/PROJECTS-AV'),
+  },
+  {
+    slug: 'stop-motion',
+    name: 'Stop Motion',
+    category: 'Motion Graphics',
+    stats: 'Clay art · Stop-motion animation',
+    year: '2025',
+    cover: cover('652b75239173773.Y3JvcCwxMzA5LDEwMjQsMTEzLDA.png'),
+    description: 'A stop-motion animation made with clay.',
+    media: [{ type: 'embed', src: player('AXa98kKCGx6'), ratio: 16 / 9 }],
+    link: behance('239173773/Stop-motion'),
   },
 ];
 
