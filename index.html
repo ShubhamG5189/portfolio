@@ -3,15 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Shubham — a 3D creator crafting striking and unforgettable projects." />
-    <title>Shubham -- 3D Creator</title>
+    <title>Shubham — 3D Creator</title>
+    <meta name="description" content="Shubham is a 3D creator crafting striking and unforgettable projects: 3D modeling, rendering, motion design, branding and web design." />
+    <meta name="author" content="Shubham" />
+    <!-- If the site moves to a new address, update this URL in the tags below (canonical, og:url, og:image, twitter:image) and in public/sitemap.xml + public/robots.txt -->
+    <link rel="canonical" href="https://mina-portfolio-tau.vercel.app/" />
+
+    <!-- link previews (WhatsApp, LinkedIn, Facebook, X, Slack…) — image made by `npm run social` -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Shubham — 3D Creator" />
+    <meta property="og:title" content="Shubham — 3D Creator" />
+    <meta property="og:description" content="3D modeling, rendering, motion design and branding. Step inside the portfolio and meet the living portrait." />
+    <meta property="og:url" content="https://mina-portfolio-tau.vercel.app/" />
+    <meta property="og:image" content="https://mina-portfolio-tau.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Shubham, 3D creator — portfolio" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Shubham — 3D Creator" />
+    <meta name="twitter:description" content="3D modeling, rendering, motion design and branding." />
+    <meta name="twitter:image" content="https://mina-portfolio-tau.vercel.app/og-image.png" />
+
+    <!-- icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#0F0B18" />
+
+    <!-- tells search engines who this site is about -->
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"Person","name":"Shubham","jobTitle":"3D Creator","url":"https://mina-portfolio-tau.vercel.app/"}
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:wght@600;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
-    <meta name="theme-color" content="#0F0B18" />
   </head>
   <body>
     <div id="root"></div>
+    <noscript><p style="font-family:sans-serif;padding:2rem;color:#e4def0;background:#0f0b18">This portfolio needs JavaScript to show its 3D portrait and animations.</p></noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

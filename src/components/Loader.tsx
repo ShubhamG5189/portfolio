@@ -81,7 +81,7 @@ export default function Loader({ onDone }: { onDone: () => void }) {
       <p className="relative font-body text-xs font-medium uppercase tracking-[0.3em] text-mist-dim">Loading the studio</p>
 
       <div className="relative">
-        <motion.h1
+        <motion.p
           initial={{ opacity: 0, letterSpacing: '0.12em' }}
           animate={{ opacity: 1, letterSpacing: '0.02em' }}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
@@ -89,7 +89,7 @@ export default function Loader({ onDone }: { onDone: () => void }) {
           style={{ fontSize: 'clamp(4.5rem, 21vw, 22rem)' }}
         >
           <span className="rgb-split" data-text={name}>{name}</span>
-        </motion.h1>
+        </motion.p>
       </div>
 
       <div className="relative flex flex-col gap-4">

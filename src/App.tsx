@@ -18,6 +18,13 @@ export default function App() {
     <IntroContext.Provider value={introDone}>
       {/* The page renders underneath the intro so the portrait can start downloading right away */}
       <AnimatePresence>{!introDone && <Loader key="loader" onDone={finish} />}</AnimatePresence>
+      {/* keyboard users: the first Tab press shows this link to jump past the hero */}
+      <a
+        href="#work"
+        className="sr-only z-[200] rounded-full bg-gold px-5 py-3 font-body text-sm font-semibold uppercase tracking-[0.14em] text-ink focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+      >
+        Skip to work
+      </a>
       <main style={{ overflowX: 'clip' }}>
         <HeroSection />
         <WorkSection />

@@ -7,7 +7,7 @@
 export const site = {
   // Your name: used in the hero heading, loader, footer and image text
   name: 'shubham',
-  tagline: 'a 3d creator driven by crafting striking and unforgettable projects',
+  tagline: 'a 3D creator driven by crafting striking and unforgettable projects',
   about:
     "With more than five years of experience in design, i focus on branding, web design, and user experience, i truly enjoy working with businesses that aim to stand out and present their best image. Let's build something incredible together!",
   // Where the "Contact Me" buttons send people. Replace with your real email.
