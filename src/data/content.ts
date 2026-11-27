@@ -10,13 +10,25 @@ export const site = {
   tagline: 'a 3D creator driven by crafting striking and unforgettable projects',
   about:
     "With more than five years of experience in design, i focus on branding, web design, and user experience, i truly enjoy working with businesses that aim to stand out and present their best image. Let's build something incredible together!",
-  // Where the "Contact Me" buttons send people. Replace with your real email.
-  email: 'hello@example.com',
+  // Contact details: shown in the footer, the closing section and on the /contact page
+  email: 'shubhamgirkar2026@gmail.com',
+  phone: '+91 90116 99046', // how it's displayed
+  phoneLink: '+919011699046', // digits only with country code: used for calls and WhatsApp
   socials: [
-    { label: 'Instagram', href: '#' },
-    { label: 'Behance', href: '#' },
-    { label: 'LinkedIn', href: '#' },
+    { label: 'Instagram', href: 'https://www.instagram.com/_iam5hubh_/' },
+    { label: 'Behance', href: 'https://www.behance.net/shubhamgirkardesigns' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/shubham-girkar-freelancedesigner/' },
   ],
+};
+
+export const whatsappLink = (text = '') =>
+  `https://wa.me/${site.phoneLink.replace(/\D/g, '')}${text ? `?text=${encodeURIComponent(text)}` : ''}`;
+
+// The requirements form on /contact. Edit the choices freely.
+export const contactForm = {
+  projectTypes: ['3D Modeling', 'Rendering', 'Motion Design', 'Branding', 'Web Design', 'Something else'],
+  budgets: ['Under ₹25k', '₹25k – ₹75k', '₹75k – ₹2L', '₹2L+', 'Not sure yet'],
+  timelines: ['As soon as possible', '2–4 weeks', '1–2 months', 'Flexible'],
 };
 
 // Living Portrait pictures. Leave empty to use the demo character.
@@ -27,7 +39,7 @@ export const navLinks = [
   { label: 'Work', href: '#work' },
   { label: 'Services', href: '#services' },
   { label: 'Gallery', href: '#gallery' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 // Gallery strip: each image with the caption shown under it

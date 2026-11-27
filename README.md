@@ -28,7 +28,9 @@ Then open the address it prints (usually http://localhost:5173). Save any file a
 
 | You want to change… | Edit this file |
 |---|---|
-| Name, tagline, about text, email, social links | `src/data/content.ts` |
+| Name, tagline, about text, email, phone/WhatsApp, social links | `src/data/content.ts` → `site` |
+| Contact page form choices (project types, budgets, timelines) | `src/data/content.ts` → `contactForm` |
+| Contact page layout and wording | `src/pages/ContactPage.tsx` (live at `/contact`) |
 | Services list | `src/data/content.ts` → `services` |
 | Projects (names, images, links) | `src/data/content.ts` → `projects` |
 | Gallery images and captions | `src/data/content.ts` → `gallery` |

@@ -90,7 +90,7 @@ export default function WorkSection() {
             <div className="flex aspect-[3/4] flex-col justify-end rounded-[10px] border-2 border-dashed border-gold/50 p-6">
               <p className="font-display text-[clamp(2rem,3.2vw,3rem)] font-black uppercase leading-[0.9] text-mist">Your project, next</p>
               <a
-                href="#contact"
+                href="/contact"
                 className="mt-4 inline-flex items-center gap-2 font-body text-sm font-semibold uppercase tracking-[0.16em] text-gold underline-offset-[6px] hover:underline"
               >
                 Start a project

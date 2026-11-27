@@ -72,6 +72,9 @@ html { scrollbar-color: #3a3150 var(--night); }
   pointer-events: none;
   mix-blend-mode: screen;
 }
+/* on light backgrounds the colour copies multiply instead, so the letters stay dark with coloured fringes */
+.rgb-split.on-light::before,
+.rgb-split.on-light::after { mix-blend-mode: multiply; }
 .rgb-split::before { color: var(--split-a); transform: translateX(-0.035em); animation: slice-a 2.8s steps(1) infinite; }
 .rgb-split::after  { color: var(--split-b); transform: translateX(0.035em);  animation: slice-b 2.8s steps(1) infinite; }
 @keyframes slice-a {
