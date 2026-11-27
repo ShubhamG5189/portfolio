@@ -20,7 +20,7 @@ export function startPortrait(folder = '/portrait/'): () => void {
   const wrap = document.getElementById('magnetWrap'), c = document.getElementById('faceGl');
   const photo = document.getElementById('faceFallback'); // the plain photo; also marks where the face sits
   if (!wrap || !c || !photo) return cleanup;
-  const gl = c.getContext('webgl', {alpha: true, premultipliedAlpha: false, antialias: true});
+  const gl = c.getContext('webgl', {alpha: true, premultipliedAlpha: true, antialias: true});
   if (!gl) return cleanup; // no WebGL: the plain photo stays
   window.__faceEngine = true;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -47,8 +47,10 @@ for(int j=0;j<2;j++){
  float dx=look.x*7.*strength*side*lid;float dy=look.y*2.2*strength*side*lid;
  if(abs(xx)<span&&pix.y>top&&pix.y<bottom){col=texture2D(tex,a-vec2(dx,dy)/1024.);}
 }
-float hair=(1.-smoothstep(.19,.31,a.y))*smoothstep(.10,.45,1.-max(col.r,max(col.g,col.b)));vec3 hue=mix(vec3(1.55,.76,.54),vec3(.70,.85,1.65),step(1.5,tint));col.rgb=mix(col.rgb,col.rgb*hue+vec3(.06,.025,.035),hair*min(1.,tint));
-gl_FragColor=col;}`;
+if(col.a<.004){gl_FragColor=vec4(0.);return;}
+float hair=(1.-smoothstep(.19,.31,a.y))*smoothstep(.10,.45,1.-max(col.r,max(col.g,col.b)))*smoothstep(.2,.8,col.a);vec3 hue=mix(vec3(1.55,.76,.54),vec3(.70,.85,1.65),step(1.5,tint));col.rgb=mix(col.rgb,col.rgb*hue+vec3(.06,.025,.035),hair*min(1.,tint));
+gl_FragColor=vec4(clamp(col.rgb,0.,1.)*col.a,col.a);}`;
+// the output is premultiplied (colour × alpha), so see-through pixels can never add a tint to the page
 
   const shader = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) console.error(gl.getShaderInfoLog(s)); return s; };
   const pr = gl.createProgram();
