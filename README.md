@@ -63,15 +63,17 @@ src/
 
 ## 5. Putting it online (free)
 
-**It's already live on Vercel:** https://mina-portfolio-tau.vercel.app
+**It's live at:** https://shubhamportfolio.in
 
-To publish your latest changes, run this in this folder:
+The GitHub repo (`ShubhamG5189/portfolio`) is connected to Vercel, so **every push to `main` publishes the site**:
 
 ```powershell
-npx vercel deploy --prod
+git add -A
+git commit -m "Describe what changed"
+git push
 ```
 
-About a minute later the live site updates. Settings, custom domains and visitor analytics are in your Vercel dashboard (project **mina-portfolio**).
+About a minute later the live site updates. (`npx.cmd vercel deploy --prod` also still works, to publish without pushing.) Settings, domains and visitor analytics are in your Vercel dashboard (project **shubham-portfolio**).
 
 ### Other hosts
 1. Build it: `npm run build`. This creates a `dist/` folder.
