@@ -2,6 +2,7 @@ import FadeIn from '../components/FadeIn';
 import ContactButton from '../components/ContactButton';
 import LivingPortrait from '../components/LivingPortrait';
 import WelcomeScript from '../components/WelcomeScript';
+import AvailableBadge from '../components/AvailableBadge';
 import { useIntroDone } from '../components/IntroContext';
 import { useFitText } from '../components/useFitText';
 import { navLinks, projects, site } from '../data/content';
@@ -32,9 +33,7 @@ export default function HeroSection() {
         aria-label="Main"
         className="relative z-30 flex items-center justify-between px-5 pt-5 md:px-10 md:pt-7"
       >
-        <a href="#" className="shrink-0 font-display text-lg font-black uppercase tracking-[0.04em] sm:text-xl md:text-2xl md:tracking-[0.06em]">
-          {name}
-        </a>
+        <AvailableBadge />
         <ul className="flex gap-3 sm:gap-7 md:gap-10">
           {navLinks.map((l) => (
             <li key={l.label}>
