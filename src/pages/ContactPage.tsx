@@ -224,7 +224,7 @@ export default function ContactPage() {
 
           <div className="relative z-10 px-5 pt-[16vh] md:px-10 md:pt-[20vh]">
             <h1 className="font-display font-black uppercase leading-[0.86]" style={{ fontSize: 'clamp(3.4rem, 10.5vw, 10rem)' }}>
-              <RiseLine delay={0.7}>Let&apos;s build</RiseLine>
+              <RiseLine delay={0.7}>Let&apos;s build{' '}</RiseLine>
               <RiseLine delay={0.8}>
                 something <span className="rgb-split on-light" data-text="unforgettable">unforgettable</span>
               </RiseLine>
