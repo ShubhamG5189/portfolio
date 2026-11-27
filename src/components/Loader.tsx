@@ -2,8 +2,8 @@ import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { site } from '../data/content';
 
-// Pictures the portrait needs before it can appear: the resting face and the lids it wakes up with.
-const ESSENTIAL = ['rest', 'closed', 'half'];
+// Pictures the portrait needs before it can appear: the resting face and its blink.
+const ESSENTIAL = ['rest', 'blink'];
 const MIN_MS = 1400; // always show the intro at least this long, so it doesn't flash
 const MAX_MS = 7000; // never block the page longer than this, even on a slow connection
 
