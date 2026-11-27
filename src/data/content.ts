@@ -7,7 +7,7 @@
 export const site = {
   // Your name: used in the hero heading, loader, footer and image text
   name: 'shubham',
-  tagline: 'a 3D creator driven by crafting striking and unforgettable projects',
+  tagline: 'an artist working across every medium a story needs',
   about:
     "With more than five years of experience in design, i focus on branding, web design, and user experience, i truly enjoy working with businesses that aim to stand out and present their best image. Let's build something incredible together!",
   // Contact details: shown in the footer, the closing section and on the /contact page

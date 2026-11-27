@@ -68,8 +68,13 @@ export default function HeroSection() {
               <img src={projects[0].col2} alt="" className="aspect-[3/4] w-full rounded-[5px] object-cover" />
             </span>
           </a>
-          <h1 className="font-display text-[clamp(1.6rem,2.6vw,2.4rem)] font-black uppercase leading-[0.9]">
-            I’m {name}, 3D creator
+          {/* what I do, one discipline per beat; the name itself is the giant backdrop behind the portrait */}
+          <h1 aria-label={`${name}: artist in graphic design, motion, 3D and AI`} className="font-display text-[clamp(1.35rem,2.6vw,2.4rem)] font-black uppercase leading-[0.92]">
+            {[['Design', 'Motion'], ['3D', 'AI']].map(([a, b]) => (
+              <span key={a} className="block whitespace-nowrap">
+                {a} <span className="text-[#b9782a]">·</span> {b}
+              </span>
+            ))}
           </h1>
           <p className="mt-3 font-body text-[0.95rem] leading-snug text-ink-soft first-letter:uppercase md:text-base">{site.tagline}.</p>
         </FadeIn>

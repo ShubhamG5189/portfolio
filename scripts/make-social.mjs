@@ -42,10 +42,13 @@ const band = Buffer.from(
 );
 
 const giant = await text(`<span foreground="${C.paperDeep}" letter_spacing="-2000">${esc(NAME)}</span>`, DISPLAY, 'Big Shoulders Black 330');
-const title = await text(`<span foreground="${C.ink}">${esc(NAME)},\n3D CREATOR</span>`, DISPLAY, 'Big Shoulders Black 104');
+// name, then the disciplines (same words as the hero heading), then the tagline
+const dot = `<span foreground="#b9782a">·</span>`;
+const title = await text(`<span foreground="${C.ink}">${esc(NAME)}</span>`, DISPLAY, 'Big Shoulders Black 120');
+const disciplines = await text(`<span foreground="${C.ink}">DESIGN ${dot} MOTION ${dot} 3D ${dot} AI</span>`, DISPLAY, 'Big Shoulders Black 50');
 const line = tagline ? tagline[0].toUpperCase() + tagline.slice(1) + '.' : '';
 const sub = await text(`<span foreground="${C.inkSoft}">${esc(line)}</span>`, BODY_MED, 'Barlow 27', 430);
-const strip = await text(`<span foreground="${C.mist}" letter_spacing="3000">3D MODELING  ·  RENDERING  ·  MOTION  ·  BRANDING</span>`, BODY, 'Barlow 21');
+const strip = await text(`<span foreground="${C.mist}" letter_spacing="3000">GRAPHIC DESIGN  ·  MOTION GRAPHICS  ·  3D  ·  AI ART</span>`, BODY, 'Barlow 21');
 
 const face = await sharp('public/portrait/rest.webp').resize({ height: 600 }).png().toBuffer();
 const faceMeta = await sharp(face).metadata();
@@ -55,8 +58,9 @@ await sharp(base)
     { input: giant.input, left: Math.round((W - giant.w) / 2), top: 6 },
     { input: face, left: W - faceMeta.width - 20, top: 40 },
     { input: band },
-    { input: title.input, left: 64, top: 150 },
-    { input: sub.input, left: 66, top: 150 + title.h + 16 },
+    { input: title.input, left: 62, top: 140 },
+    { input: disciplines.input, left: 66, top: 140 + title.h + 4 },
+    { input: sub.input, left: 66, top: 140 + title.h + 4 + disciplines.h + 18 },
     { input: strip.input, left: 66, top: H - 52 },
   ])
   .png({ compressionLevel: 9 })
