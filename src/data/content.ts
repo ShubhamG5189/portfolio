@@ -110,4 +110,4 @@ export const projects: Project[] = [
 ];
 
 // Toolkit shown under Services (displayed in capitals with / between). Name specific AI tools here if you like.
-export const tools = ['Photoshop', 'After Effects', 'Premiere Pro', 'Blender', 'AI Tools', 'AI Workflows (MCP)'];
+export const tools = ['Photoshop', 'After Effects', 'Premiere Pro', 'Blender', 'Procreate', 'AI Tools', 'AI Workflows (MCP)'];
