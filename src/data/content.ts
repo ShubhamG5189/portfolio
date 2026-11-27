@@ -109,5 +109,5 @@ export const projects: Project[] = [
   },
 ];
 
-// Toolkit shown under Services. Replace with the tools you actually use.
-export const tools = ['Blender', 'Cinema 4D', 'Octane', 'Substance Painter', 'After Effects', 'Figma'];
+// Toolkit shown under Services (displayed in capitals with / between). Name specific AI tools here if you like.
+export const tools = ['Photoshop', 'After Effects', 'Premiere Pro', 'Blender', 'AI Tools', 'AI Workflows (MCP)'];
