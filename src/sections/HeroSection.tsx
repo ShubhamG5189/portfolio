@@ -50,11 +50,11 @@ export default function HeroSection() {
       </FadeIn>
 
       <LivingPortrait ready={ready}>
-        {/* "Welcome", handwritten beside the portrait just after it fades in */}
+        {/* "Welcome", handwritten at the bottom middle of the portrait just after it fades in */}
         <WelcomeScript
           start={ready}
           delay={1.3}
-          className="absolute left-[47%] top-[64%] z-20 w-[42%] -rotate-[7deg] md:left-[64%] md:top-[62%] md:w-[48%]"
+          className="absolute left-1/2 top-[70%] z-20 w-[48%] -translate-x-1/2 -rotate-[4deg] md:top-[75%] md:w-[44%]"
         />
         <span className="sr-only">Welcome</span>
       </LivingPortrait>
