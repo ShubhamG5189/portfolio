@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Hand } from 'lucide-react';
 import FadeIn from './FadeIn';
@@ -8,7 +8,8 @@ import { portraitFolder, site } from '../data/content';
 const FALLBACK =
   'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20261031_040619_2f6f349e-a4a7-40db-8e9b-03b6acd8b99a.png&w=1024&q=92';
 
-export default function LivingPortrait({ ready = true }: { ready?: boolean }) {
+// `children` are drawn on top of the portrait and positioned relative to it (e.g. the handwritten "Welcome").
+export default function LivingPortrait({ ready = true, children }: { ready?: boolean; children?: ReactNode }) {
   // Start the WebGL engine once the markup below is on the page; stop it when the component goes away.
   useEffect(() => startPortrait(portraitFolder), []);
 
@@ -43,6 +44,8 @@ export default function LivingPortrait({ ready = true }: { ready?: boolean }) {
           </div>
         </div>
       </FadeIn>
+
+      {children}
 
       {/* "poke me" hint: appears after the entrance, bobs gently, leaves on the first touch */}
       <AnimatePresence>

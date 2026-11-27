@@ -1,6 +1,7 @@
 import FadeIn from '../components/FadeIn';
 import ContactButton from '../components/ContactButton';
 import LivingPortrait from '../components/LivingPortrait';
+import WelcomeScript from '../components/WelcomeScript';
 import { useIntroDone } from '../components/IntroContext';
 import { useFitText } from '../components/useFitText';
 import { navLinks, projects, site } from '../data/content';
@@ -19,7 +20,7 @@ export default function HeroSection() {
           className="inline-block whitespace-nowrap font-display font-black uppercase leading-[0.8] text-paper-deep"
           style={{ fontSize: size ? `${size}px` : '30vw' }}
         >
-          {name}
+          I’m {name}
         </span>
       </div>
 
@@ -48,7 +49,15 @@ export default function HeroSection() {
         </ul>
       </FadeIn>
 
-      <LivingPortrait ready={ready} />
+      <LivingPortrait ready={ready}>
+        {/* "Welcome", handwritten beside the portrait just after it fades in */}
+        <WelcomeScript
+          start={ready}
+          delay={1.3}
+          className="absolute left-[47%] top-[64%] z-20 w-[42%] -rotate-[7deg] md:left-[64%] md:top-[62%] md:w-[48%]"
+        />
+        <span className="sr-only">Welcome</span>
+      </LivingPortrait>
 
       {/* introduction (left) and the one action (right); sits above the diagonal cut.
           The strip spans the full width across the face, so it lets the mouse through to the portrait;
@@ -61,7 +70,7 @@ export default function HeroSection() {
             </span>
           </a>
           <h1 className="font-display text-[clamp(1.6rem,2.6vw,2.4rem)] font-black uppercase leading-[0.9]">
-            {name}, 3D creator
+            I’m {name}, 3D creator
           </h1>
           <p className="mt-3 font-body text-[0.95rem] leading-snug text-ink-soft first-letter:uppercase md:text-base">{site.tagline}.</p>
         </FadeIn>

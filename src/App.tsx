@@ -11,7 +11,8 @@ import Loader from './components/Loader';
 import { IntroContext } from './components/IntroContext';
 
 export default function App() {
-  const [introDone, setIntroDone] = useState(false);
+  // dev-only ?skipanim (see main.tsx) also skips the intro, which counts on animation frames
+  const [introDone, setIntroDone] = useState(() => import.meta.env.DEV && new URLSearchParams(window.location.search).has('skipanim'));
   const finish = useCallback(() => setIntroDone(true), []);
 
   return (

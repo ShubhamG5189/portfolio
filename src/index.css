@@ -15,6 +15,7 @@
   --mist-dim: #a99fc2;     /* secondary text on night (≈7.6:1) */
   --gold: #f0b54a;         /* collectible-card frames + the one primary action */
   --violet: #8c6bff;       /* focus + selection */
+  --violet-ink: #4f35c4;   /* the handwritten "Welcome" (≈6:1 on paper) */
   --split-a: #ff3d6e;      /* RGB-split channels, glitch moments only */
   --split-b: #2de2e6;
   /* the same colours as RGB channels, so Tailwind classes like text-mist/20 can add opacity */
